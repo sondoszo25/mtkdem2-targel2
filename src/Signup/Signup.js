@@ -75,12 +75,6 @@ function Signup() {
       alert("Password did not match try again!");
       return false;
     } else {
-
-      if (saveUser(user.value, password.value, name, img) == false) {
-        e.preventDefault();
-        alert("There is a Username like this Try again");
-        return false;
-      }
       e.preventDefault();
       const data = {
         username: user.value,
@@ -103,9 +97,6 @@ function Signup() {
         navigate('/');
       return true;
     }
-
-
-
   };
 
 

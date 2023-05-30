@@ -1,8 +1,9 @@
 import './Signin.css';
 import { Link, useNavigate } from 'react-router-dom'
 import { createElement, useState } from 'react';
-import { check } from '../Mydata/SaveData.js'
-
+import { check, lastlogin } from '../Mydata/SaveData.js';
+export var lastlogin2;
+export var toko;
 function Signin() {
   const navigate = useNavigate();
 
@@ -23,28 +24,15 @@ function Signin() {
       'body': JSON.stringify(data) // The actual data (username/password)
     }
     )
-
-    const json = await res.json()
-    if (res.status != 201) {
+    toko= await res.text();
+    if (res.status == 404) {
       alert('Invalid username and/or password')
     }
     else {
-      // Correct username/password
-      // Take the token the server sent us
-      // and make *another* request to the homepage
-      // but attach the token to the request
-      const res = await fetch('http://localhost:5000/api/Users/' + user, {
-        'headers': {
-          'Content-Type': 'application/json',
-          'authorization': 'bearer ' + json.token // attach the token
-        },
-      }
-      )
-      console.log("1")
+      lastlogin2=user;
+    
       navigate('/Chat');
     }
-
-
   };
 
 

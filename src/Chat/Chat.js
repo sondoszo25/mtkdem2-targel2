@@ -11,13 +11,46 @@ import Contacts from '../Mydata/contacts';
 import { friend1 } from '../Mydata/contacts';
 import { removelast } from '../Mydata/contacts.js'
 import Compphoto from '../Mydata/Compphoto.js'
-import { friend13} from '../Mydata/contacts.js';
+import { friend13 } from '../Mydata/contacts.js';
 import GetMsg from '../Mydata/msg.js';
+import { toko } from '../Signin/Signin.js'
+import { lastlogin2 } from '../Signin/Signin.js';
 
+
+async function getloggedinow(set) {
+  const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
+    'headers': {
+      'Content-Type': 'application/json',
+      'authorization': 'bearer ' + toko // attach the token
+    },
+  }
+  )
+  const result = await res.json();
+  set(result);
+
+}
+
+async function getcontacts(setMycontacts)
+{
+
+  const res2 = await fetch('http://localhost:5000/api/Chats/', {
+    'headers': {
+      'Content-Type': 'application/json',
+      'authorization': 'bearer ' + toko // attach the token
+    },
+  }
+  )
+ 
+  const result2 = await res2.json();
+  setMycontacts(result2);
+
+}
 
 function Chat() {
 
-  const reftxt=useRef(null);
+
+
+  const reftxt = useRef(null);
   function makeEmpty(e) {
     document.getElementById("getfr").value = "";
   }
@@ -25,63 +58,64 @@ function Chat() {
   const [frinedphoto, setfriendphoto] = useState(null);
   const [allmsg, setallmsg] = useState([]);
   const [friend133, setfriend133] = useState('');
+  const [loggedin, setloggedin] = useState({});
+  const [myContatcs, setMycontacts] = useState([]);
+
+  getloggedinow(setloggedin, setMycontacts);
+  getcontacts(setMycontacts);
 
 
-  function funcget() {
 
-    const name = document.getElementById("getfr").value;
-    setf(name);
-    if (useStatef) {
-      addf(name);
+
+
+  async function funcget() {
+    var user=document.getElementById("getfr").value;
+   var data= {
+      username: user
+      }
+      
+    const res2 = await fetch('http://localhost:5000/api/Chats/', {
+      'method': 'post',
+      'headers': {
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + toko // attach the token
+      },
+      'body': JSON.stringify(data) 
     }
+    )
+    if(res2.status == 401) {
+      alert("there is no username like this! or already added")
+      return false ;
+    }
+    const result2 = await res2.json();
+
+ getcontacts(setMycontacts);
   }
-  var frinedss = users[lastlogin].contactslist.map((friend, key) => {
+
+
+
+
+
+
+  function sendmsg(msg) {
+
+  }
+
+
+
+
+
+  function sendmsgg() {
+    if (reftxt.current.value) {
+      sendmsg(reftxt.current.value);
+    }
+    reftxt.current.value = '';
+  }
+
+  var frinedss = myContatcs.map((friend, key) => {
     return <Contacts {...friend} key={key} set={setfriendphoto} set2={setallmsg} set3={setfriend133}></Contacts>
 
   });
-
-
-
-  
-  
-  
-  function sendmsg(msg)
-  { 
-   var allmsgg;
-   const date=new Date();
-   const m= date.getMinutes();
-   const h=date.getHours();
-   if(friend133){
-      if(typeof(users[lastlogin].msg[friend133]) === 'undefined')
-      {
-          users[lastlogin].msg[friend133]=[{msg:msg,h:h,m:m}];
-          
-      }
-     else{
-      users[lastlogin].msg[friend133].push({msg:msg,h:h,m:m});
-     }
-     users[lastlogin].lastmsg[friend133]={msg:msg,h:h,m:m};
-     allmsgg=users[lastlogin].msg[friend133].map((item,key) =>{
-      return <GetMsg {...item} key={key}></GetMsg>                                                         
-     });
-   setallmsg(allmsgg);
-    }
-  }
-
-
-
-
-
-function sendmsgg()
-{
-if(reftxt.current.value)
-{
-  sendmsg(reftxt.current.value);
-} 
-reftxt.current.value='';
-}
-
-
   return (
     <>
       <div id="GreenDivvv">
@@ -90,21 +124,20 @@ reftxt.current.value='';
       </div>
       <div id="chatscreen">
         <div id="photodiv">
-          {frinedphoto}
+        {frinedphoto}
         </div>
         <div id="yellowdiv">
-          {allmsg}
         </div>
         <div id="chatting">
           <input type="text" ref={reftxt} id="textbox" placeholder="New message here.."></input>
-          <button type="button"  className="btn btn-light" id="sendbtn" onClick={sendmsgg}><span id="sendword" >send</span></button>
+          <button type="button" className="btn btn-light" id="sendbtn" onClick={sendmsgg}><span id="sendword" >send</span></button>
         </div>
       </div>
 
       <div id="friends">
 
         <div id="me">
-          <Me></Me>
+          <Me data={loggedin}></Me>
           <img src={add} onClick={makeEmpty} type="button" width="16" height="16" fill="currentColor" className="bi bi-person-plus badd"
             viewBox="0 0 16 16" data-bs-target="#exampleModal" data-bs-toggle="modal"></img>
           <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -127,8 +160,8 @@ reftxt.current.value='';
         </div>
       </div>
       <div id="contactsadd">
-
         {frinedss}
+
 
 
       </div>

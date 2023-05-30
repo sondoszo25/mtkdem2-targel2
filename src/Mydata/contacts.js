@@ -15,7 +15,7 @@ export function removelast() {
   friend13 = '';
 }
 
-function Contacts({ username, name, img, set, set2,set3}) {
+function Contacts({ user,username, displayName, img, set, set2,set3}) {
   const [hovered, setHovered] = useState(false);
 
   function handleMouseOver() {
@@ -27,11 +27,9 @@ function Contacts({ username, name, img, set, set2,set3}) {
   }
 
   var srcimg;
-  if (img) {
-    srcimg = URL.createObjectURL(img);
-  } else {
+
     srcimg = dimg;
-  }
+  
 
 
 
@@ -53,13 +51,14 @@ function Contacts({ username, name, img, set, set2,set3}) {
     else {
       set2([]);
     }
-    friend1 = [{ name: name, img: srcimg }];
+    friend1 = [{ name: user.displayName, img: srcimg }];
     set3(username);
     frined111 = friend1.map((item, key) => {
       return <Compphoto {...item} key={key} ></Compphoto>
     });
     set(frined111);
   }
+
   var lastmsg={};
 if(typeof(users[lastlogin].lastmsg[username]) !== 'undefined'){
   console.log("hi im here please");
@@ -72,7 +71,7 @@ console.log(lastmsg);
     <>
       <div type="button" id='jo1' onMouseOver={handleMouseOver} onMouseOut={handle2} style={divStyle} onClick={movescreen}>
         <img src={srcimg} className="rounded-circle iimageidd" alt="profile"></img>
-        <span id="chatmeee">{name}</span>
+        <span id="chatmeee">{user.displayName}</span>
         <span id="chatin1">{lastmsg.msg}</span>
         {(lastmsg.msg &&
       <span id="Clock1">{lastmsg.h}:{lastmsg.m}</span>

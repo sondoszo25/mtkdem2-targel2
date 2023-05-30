@@ -12,8 +12,8 @@ class user {
         this.password = password
         this.img = img
         this.contactslist = []
-        this.msg={};
-        this.lastmsg={};
+        this.msg = {};
+        this.lastmsg = {};
     }
 }
 export var users = { "mohammed": new user("mohammed", "Mm1234567", "mohammed", undefined), "sondos": new user("sondos", "Ss1234567", "sondos", undefined), "sally": new user("sally", "Sally1234567", "sally", undefined) };
@@ -61,7 +61,7 @@ export function addf(name) {
         alert("You already add");
     }
     else {
-        users[lastlogin].contactslist.push({username:name ,name: users[name].name, img: users[name].img });
+        users[lastlogin].contactslist.push({ username: name, name: users[name].name, img: users[name].img });
     }
 }
 export function saveUser(username, password, name, img) {
@@ -77,18 +77,14 @@ export function saveUser(username, password, name, img) {
 
 
 
-function Me() {
-
+function Me({data}) {
+ 
     var srcimg;
-    if (users[lastlogin].img) {
-        srcimg = URL.createObjectURL(users[lastlogin].img);
-    }
-    else {
         srcimg = dimg;
-    }
+    
     return (
         <>
-            <img src={srcimg} class="rounded-circle imageid"></img><span id="chatme">{users[lastlogin].name}</span>
+            <img src={srcimg} class="rounded-circle imageid"></img><span id="chatme">{data.displayName}</span>
         </>
     )
 }
