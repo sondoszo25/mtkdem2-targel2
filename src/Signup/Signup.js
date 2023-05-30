@@ -1,5 +1,5 @@
 import './Signup.css';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import React from 'react';
 import { saveUser } from '../Mydata/SaveData.js';
@@ -60,13 +60,11 @@ const IMG = () => {
 
 
 
-
-
 function Signup() {
 
 
   const navigate = useNavigate();
-  const navigateHome = (e) => {
+  const navigateHome = async (e) => {
     const password = document.getElementById("pass");
     const confirmPassword = document.getElementById("passc");
     const user = document.getElementById("user");
@@ -84,12 +82,32 @@ function Signup() {
         return false;
       }
       e.preventDefault();
-      alert("You have registered succesfully !! :) ");
-      navigate('/');
+      const data = {
+        username: user.value,
+        password: password.value,
+        displayName: name,
+        profilePic: "string"
+      }
+      const res = await fetch('http://localhost:5000/api/Users', {
+        'method': 'post', // send a post request
+        'headers': {
+          'Content-Type': 'application/json', // the data (username/password) is in the form of a JSON object
+        },
+        'body': JSON.stringify(data)
+      })
+      if (res.status == 409) {
+        alert('the username is used try with another one !')
+        return false;
+      }
+        alert("You have registered succesfully !! :) ");
+        navigate('/');
       return true;
     }
 
+
+
   };
+
 
 
   return (

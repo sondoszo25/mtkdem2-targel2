@@ -6,16 +6,45 @@ import { check } from '../Mydata/SaveData.js'
 function Signin() {
   const navigate = useNavigate();
 
-  const navigateChat = (e) => {
+  const navigateChat = async (e) => {
 
     e.preventDefault();
+    const user = document.getElementById('user1').value;
+    const password = document.getElementById("ps").value;
+    const data = {
+      username: user,
+      password: password
+    }
+    const res = await fetch('http://localhost:5000/api/Tokens', {
+      'method': 'post', // send a post request
+      'headers': {
+        'Content-Type': 'application/json', // the data (username/password) is in the form of a JSON object
+      },
+      'body': JSON.stringify(data) // The actual data (username/password)
+    }
+    )
 
-    if (check(document.getElementById('user1').value, document.getElementById("ps").value)) {
-      navigate('/Chat');
+    const json = await res.json()
+    if (res.status != 201) {
+      alert('Invalid username and/or password')
     }
     else {
-      alert("User or Password are wrong try agian!");
+      // Correct username/password
+      // Take the token the server sent us
+      // and make *another* request to the homepage
+      // but attach the token to the request
+      const res = await fetch('http://localhost:5000/api/Users/' + user, {
+        'headers': {
+          'Content-Type': 'application/json',
+          'authorization': 'bearer ' + json.token // attach the token
+        },
+      }
+      )
+      console.log("1")
+      navigate('/Chat');
     }
+
+
   };
 
 
