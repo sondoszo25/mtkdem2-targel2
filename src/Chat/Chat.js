@@ -20,6 +20,7 @@ import {getllmsg} from '../Mydata/contacts.js';
 async function getloggedinow(set) {
   const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
     'headers': {
+      'mode':'no-cors',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
@@ -35,12 +36,15 @@ async function getcontacts(setMycontacts)
 
   const res2 = await fetch('http://localhost:5000/api/Chats/', {
     'headers': {
+      'mode':'no-cors',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
   }
   )
- 
+ if(res2.status == 404){
+  return;
+ }
   const result2 = await res2.json();
   setMycontacts(result2);
 
@@ -103,6 +107,7 @@ function Chat() {
     const data= {
       msg: msg
       }
+      
       var idd= '' + friend133.id;
     const res2 = await fetch('http://localhost:5000/api/Chats/'+ idd +"/Messages", {
       'method': 'post',

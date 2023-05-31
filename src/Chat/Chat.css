@@ -251,6 +251,39 @@ width:100%;
     margin: -1vh 0 0 28vw
 }
 
+
+#speech-bubbler {
+    width: 6vw;
+    margin-bottom: 2vb;
+    bottom: 1.5vh;
+    position: relative;
+    height: 8vh;
+    left: 5%;
+    background: rgb(41, 213, 41);
+    border-radius: 1vw;
+    font-size: 1vw;
+    padding: 0.5vw;
+    height:fit-content;
+    max-width:fit-content;
+    word-break:break-all;
+    z-index: 1;
+}
+
+#speech-bubbler:after {
+    content: "";
+    position: absolute;
+    width: fit;
+    height: 0;
+    left: -30vw;
+    border-top: 0.7vh solid transparent;
+    border-right: 2.2vw solid rgb(41, 213, 41);
+    border-bottom: 0.5vh solid transparent;
+    margin: -1vh 0 0 28vw
+}
+
+
+
+
 #clock4 {
     color: dimgray;
     position: absolute;

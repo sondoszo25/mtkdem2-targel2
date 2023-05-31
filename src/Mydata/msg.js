@@ -1,12 +1,28 @@
 import '../Chat/Chat.css';
-function GetMsg({content,created}){
+import { lastlogin2 } from '../Signin/Signin.js';
 
-return(
-<>
-<div id="speech-bubble"> <div id="writeright">{content}</div>
-<div id="Clock2">{created}</div>
-</div>
-</>
-);
+function GetMsg({ content, created, sender, id }) {
+    var name=sender.username;
+    return (
+        <>
+              { (name === lastlogin2  &&
+                    <div id="speech-bubble"> <div id="writeright">{content}</div>
+                        <div id="Clock2">{created}</div>
+                    </div>
+                )}
+             
+
+                   { (name !== lastlogin2 &&
+                        <div id="speech-bubbler"> <div id="writeright">{content}</div>
+                            <div id="Clock2">{created}</div>
+                        </div>
+                    
+                    )}
+
+
+                   
+
+        </>
+    );
 }
 export default GetMsg;
