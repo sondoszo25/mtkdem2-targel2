@@ -15,7 +15,7 @@ import { friend13 } from '../Mydata/contacts.js';
 import GetMsg from '../Mydata/msg.js';
 import { toko } from '../Signin/Signin.js'
 import { lastlogin2 } from '../Signin/Signin.js';
-
+import {getllmsg} from '../Mydata/contacts.js';
 
 async function getloggedinow(set) {
   const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
@@ -57,7 +57,7 @@ function Chat() {
   const [useStatef, setf] = useState(true);
   const [frinedphoto, setfriendphoto] = useState(null);
   const [allmsg, setallmsg] = useState([]);
-  const [friend133, setfriend133] = useState('');
+  const [friend133, setfriend133] = useState(null);
   const [loggedin, setloggedin] = useState({});
   const [myContatcs, setMycontacts] = useState([]);
 
@@ -83,13 +83,13 @@ function Chat() {
       'body': JSON.stringify(data) 
     }
     )
-    if(res2.status == 401) {
+    if(res2.status == 400) {
       alert("there is no username like this! or already added")
-      return false ;
+      
     }
-    const result2 = await res2.json();
-
+    else{
  getcontacts(setMycontacts);
+    }
   }
 
 
@@ -97,8 +97,24 @@ function Chat() {
 
 
 
-  function sendmsg(msg) {
-
+  async function sendmsg(msg) {
+   if(friend133){
+   
+    const data= {
+      msg: msg
+      }
+      var idd= '' + friend133.id;
+    const res2 = await fetch('http://localhost:5000/api/Chats/'+ idd +"/Messages", {
+      'method': 'post',
+      'headers': {
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + toko // attach the token
+      },
+      'body': JSON.stringify(data) 
+    }
+    )
+    getllmsg(setallmsg,friend133.id);
+    }
   }
 
 
@@ -127,6 +143,7 @@ function Chat() {
         {frinedphoto}
         </div>
         <div id="yellowdiv">
+          {allmsg}
         </div>
         <div id="chatting">
           <input type="text" ref={reftxt} id="textbox" placeholder="New message here.."></input>

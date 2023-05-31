@@ -7,6 +7,7 @@ import { users } from './SaveData';
 import { lastlogin } from './SaveData';
 import Compphoto from './Compphoto';
 import GetMsg from './msg';
+import { toko } from '../Signin/Signin.js'
 var srcimgg;
 export var friend1 = [];
 export var friend13 = '';
@@ -15,7 +16,30 @@ export function removelast() {
   friend13 = '';
 }
 
-function Contacts({ user,username, displayName, img, set, set2,set3}) {
+
+
+export async function getllmsg(set,id )
+{
+  var idd= '' + id;
+  console.log(idd);
+  const res = await fetch('http://localhost:5000/api/Chats/'+ idd +"/Messages", {
+    'headers': {
+      'Content-Type': 'application/json',
+      'authorization': 'bearer ' + toko // attach the token
+    },
+  }
+  )
+  const result = await res.json();
+    
+ const allmsgg=result.map((item,key) =>{
+    return <GetMsg {...item} key={key}></GetMsg>                                                         
+   });
+
+  set(allmsgg);
+
+}
+
+function Contacts({ user,id, lastMessage, img,username,set, set2,set3}) {
   const [hovered, setHovered] = useState(false);
 
   function handleMouseOver() {
@@ -42,39 +66,27 @@ function Contacts({ user,username, displayName, img, set, set2,set3}) {
 
   var frined111;
   function movescreen() {
-    if (typeof (users[lastlogin].msg[username]) !== 'undefined') {
-      var allmsgg = users[lastlogin].msg[username].map((item, key) => {
-        return <GetMsg {...item} key={key}></GetMsg>
-      });
-      set2(allmsgg)
-    }
-    else {
-      set2([]);
-    }
-    friend1 = [{ name: user.displayName, img: srcimg }];
-    set3(username);
+    friend1 = [{ name: user.displayName, img: srcimg}];
+    set3({id:id,user:user});
     frined111 = friend1.map((item, key) => {
       return <Compphoto {...item} key={key} ></Compphoto>
     });
     set(frined111);
+     getllmsg(set2,id);
   }
 
-  var lastmsg={};
-if(typeof(users[lastlogin].lastmsg[username]) !== 'undefined'){
-  console.log("hi im here please");
-lastmsg=users[lastlogin].lastmsg[username];
-console.log(lastmsg);
 
-}
 
   return (
     <>
       <div type="button" id='jo1' onMouseOver={handleMouseOver} onMouseOut={handle2} style={divStyle} onClick={movescreen}>
         <img src={srcimg} className="rounded-circle iimageidd" alt="profile"></img>
         <span id="chatmeee">{user.displayName}</span>
-        <span id="chatin1">{lastmsg.msg}</span>
-        {(lastmsg.msg &&
-      <span id="Clock1">{lastmsg.h}:{lastmsg.m}</span>
+        {(lastMessage &&
+                <span id="chatin1">{lastMessage.content}</span>
+        )}
+        {(lastMessage &&
+      <span id="Clock1">{lastMessage.created}</span>
        ) }
       </div>
       

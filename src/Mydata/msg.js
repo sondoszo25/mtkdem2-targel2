@@ -1,10 +1,10 @@
 import '../Chat/Chat.css';
-function GetMsg({msg,h,m}){
+function GetMsg({content,created}){
 
 return(
 <>
-<div id="speech-bubble"> <div id="writeright">{msg}</div>
-<div id="Clock2">{h}:{m}</div>
+<div id="speech-bubble"> <div id="writeright">{content}</div>
+<div id="Clock2">{created}</div>
 </div>
 </>
 );
