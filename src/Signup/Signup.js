@@ -11,7 +11,6 @@ function imageUploaded() {
   var file = document.querySelector('input[type=file]')['files'][0];
 
   var reader = new FileReader();
-  console.log("next");
 
   reader.onload = function () {
     base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
@@ -97,8 +96,9 @@ function Signup() {
         profilePic: "data:image/*;base64," + base64String
       }
       const res = await fetch('http://localhost:5000/api/Users', {
-        'method': 'post', // send a post request
+        'method': 'POST', // send a post request
         'headers': {
+          'accept': '*/*',
           'Content-Type': 'application/json', // the data (username/password) is in the form of a JSON object
         },
         'body': JSON.stringify(data)

@@ -26,7 +26,7 @@ export async function getllmsg(set, id) {
   )
   const result = await res.json();
 
-  const allmsgg = result.map((item, key) => {
+  const allmsgg = result.reverse().map((item, key) => {
     return <GetMsg {...item} key={key}></GetMsg>
   });
 
@@ -64,14 +64,14 @@ function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
   }
 
   var frined111;
-  function movescreen() {
+  async function movescreen() {
     friend1 = [{ name: user.displayName, img: srcimg }];
     set3({ id: id, user: user });
     frined111 = friend1.map((item, key) => {
       return <Compphoto {...item} key={key} ></Compphoto>
     });
     set(frined111);
-    getllmsg(set2, id);
+    await getllmsg(set2, id);
   }
 
 

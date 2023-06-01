@@ -3,16 +3,9 @@ import { Link } from 'react-router-dom'
 import imgbc from './imgbc.jpg'
 import add from './add.png'
 import React, { useEffect, useRef, useState } from 'react';
-import { addf } from '../Mydata/SaveData.js';
 import Me, { frineds } from '../Mydata/SaveData.js'
-import { users } from '../Mydata/SaveData.js';
-import { lastlogin } from '../Mydata/SaveData.js';
 import Contacts from '../Mydata/contacts';
-import { friend1 } from '../Mydata/contacts';
 import { removelast } from '../Mydata/contacts.js'
-import Compphoto from '../Mydata/Compphoto.js'
-import { friend13 } from '../Mydata/contacts.js';
-import GetMsg from '../Mydata/msg.js';
 import { toko } from '../Signin/Signin.js'
 import { lastlogin2 } from '../Signin/Signin.js';
 import { getllmsg } from '../Mydata/contacts.js';
@@ -22,6 +15,7 @@ async function getloggedinow(set) {
     'method': 'GET',
     'headers': {
       'mode': 'no-cors',
+      'accept': 'text/plain',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
@@ -38,6 +32,7 @@ async function getcontacts(setMycontacts) {
     'method': 'GET',
     'headers': {
       'mode': 'no-cors',
+      'accept': 'text/plain',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
