@@ -3,12 +3,9 @@ import dimg from '../dimg.png'
 import { movescreen } from './SaveData';
 import { useEffect, useState } from 'react';
 import Chat from '../Chat/Chat';
-import { users } from './SaveData';
-import { lastlogin } from './SaveData';
 import Compphoto from './Compphoto';
 import GetMsg from './msg';
 import { toko } from '../Signin/Signin.js'
-var srcimgg;
 export var friend1 = [];
 export var friend13 = '';
 export function removelast() {
@@ -18,11 +15,9 @@ export function removelast() {
 
 
 
-export async function getllmsg(set,id )
-{
-  var idd= '' + id;
-  console.log(idd);
-  const res = await fetch('http://localhost:5000/api/Chats/'+ idd +"/Messages", {
+export async function getllmsg(set, id) {
+  var idd = '' + id;
+  const res = await fetch('http://localhost:5000/api/Chats/' + idd + "/Messages", {
     'headers': {
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
@@ -30,16 +25,16 @@ export async function getllmsg(set,id )
   }
   )
   const result = await res.json();
-    
- const allmsgg=result.map((item,key) =>{
-    return <GetMsg {...item} key={key}></GetMsg>                                                         
-   });
+
+  const allmsgg = result.map((item, key) => {
+    return <GetMsg {...item} key={key}></GetMsg>
+  });
 
   set(allmsgg);
 
 }
 
-function Contacts({ user,id, lastMessage, img,username,set, set2,set3}) {
+function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
   const [hovered, setHovered] = useState(false);
 
   function handleMouseOver() {
@@ -52,8 +47,12 @@ function Contacts({ user,id, lastMessage, img,username,set, set2,set3}) {
 
   var srcimg;
 
+  if (user.profilePic) {
+    srcimg = user.profilePic
+  }
+  else {
     srcimg = dimg;
-  
+  }
 
 
 
@@ -66,13 +65,13 @@ function Contacts({ user,id, lastMessage, img,username,set, set2,set3}) {
 
   var frined111;
   function movescreen() {
-    friend1 = [{ name: user.displayName, img: srcimg}];
-    set3({id:id,user:user});
+    friend1 = [{ name: user.displayName, img: srcimg }];
+    set3({ id: id, user: user });
     frined111 = friend1.map((item, key) => {
       return <Compphoto {...item} key={key} ></Compphoto>
     });
     set(frined111);
-     getllmsg(set2,id);
+    getllmsg(set2, id);
   }
 
 
@@ -83,13 +82,13 @@ function Contacts({ user,id, lastMessage, img,username,set, set2,set3}) {
         <img src={srcimg} className="rounded-circle iimageidd" alt="profile"></img>
         <span id="chatmeee">{user.displayName}</span>
         {(lastMessage &&
-                <span id="chatin1">{lastMessage.content}</span>
+          <span id="chatin1">{lastMessage.content}</span>
         )}
         {(lastMessage &&
-      <span id="Clock1">{lastMessage.created}</span>
-       ) }
+          <span id="Clock1">{lastMessage.created}</span>
+        )}
       </div>
-      
+
     </>
   );
 }

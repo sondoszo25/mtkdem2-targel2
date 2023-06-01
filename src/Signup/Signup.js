@@ -5,6 +5,20 @@ import React from 'react';
 import { saveUser } from '../Mydata/SaveData.js';
 
 
+let base64String = "";
+
+function imageUploaded() {
+  var file = document.querySelector('input[type=file]')['files'][0];
+
+  var reader = new FileReader();
+  console.log("next");
+
+  reader.onload = function () {
+    base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+  }
+  reader.readAsDataURL(file);
+}
+
 const IMG = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -40,7 +54,7 @@ const IMG = () => {
             <div className="input-group distance190">
               <input id="imgupload" type="file" className="form-control" accept="image/*" onChange={(event) => {
                 setSelectedImage(event.target.files[0]);
-
+                imageUploaded();
               }}></input>
             </div>
           </div>        </nav>
@@ -80,7 +94,7 @@ function Signup() {
         username: user.value,
         password: password.value,
         displayName: name,
-        profilePic: "string"
+        profilePic: "data:image/*;base64," + base64String
       }
       const res = await fetch('http://localhost:5000/api/Users', {
         'method': 'post', // send a post request
@@ -93,8 +107,8 @@ function Signup() {
         alert('the username is used try with another one !')
         return false;
       }
-        alert("You have registered succesfully !! :) ");
-        navigate('/');
+      alert("You have registered succesfully !! :) ");
+      navigate('/');
       return true;
     }
   };

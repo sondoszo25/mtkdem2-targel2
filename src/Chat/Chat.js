@@ -15,12 +15,13 @@ import { friend13 } from '../Mydata/contacts.js';
 import GetMsg from '../Mydata/msg.js';
 import { toko } from '../Signin/Signin.js'
 import { lastlogin2 } from '../Signin/Signin.js';
-import {getllmsg} from '../Mydata/contacts.js';
+import { getllmsg } from '../Mydata/contacts.js';
 
 async function getloggedinow(set) {
   const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
+    'method': 'GET',
     'headers': {
-      'mode':'no-cors',
+      'mode': 'no-cors',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
@@ -31,20 +32,20 @@ async function getloggedinow(set) {
 
 }
 
-async function getcontacts(setMycontacts)
-{
+async function getcontacts(setMycontacts) {
 
   const res2 = await fetch('http://localhost:5000/api/Chats/', {
+    'method': 'GET',
     'headers': {
-      'mode':'no-cors',
+      'mode': 'no-cors',
       'Content-Type': 'application/json',
       'authorization': 'bearer ' + toko // attach the token
     },
   }
   )
- if(res2.status == 404){
-  return;
- }
+  if (res2.status == 404) {
+    return;
+  }
   const result2 = await res2.json();
   setMycontacts(result2);
 
@@ -73,26 +74,26 @@ function Chat() {
 
 
   async function funcget() {
-    var user=document.getElementById("getfr").value;
-   var data= {
+    var user = document.getElementById("getfr").value;
+    var data = {
       username: user
-      }
-      
-    const res2 = await fetch('http://localhost:5000/api/Chats/', {
+    }
+
+    const res2 = await fetch('http://localhost:5000/api/Chats', {
       'method': 'post',
       'headers': {
         'Content-Type': 'application/json',
         'authorization': 'bearer ' + toko // attach the token
       },
-      'body': JSON.stringify(data) 
+      'body': JSON.stringify(data)
     }
     )
-    if(res2.status == 400) {
+    if (res2.status == 400) {
       alert("there is no username like this! or already added")
-      
+
     }
-    else{
- getcontacts(setMycontacts);
+    else {
+      getcontacts(setMycontacts);
     }
   }
 
@@ -102,23 +103,23 @@ function Chat() {
 
 
   async function sendmsg(msg) {
-   if(friend133){
-   
-    const data= {
-      msg: msg
+    if (friend133) {
+
+      const data = {
+        msg: msg
       }
-      
-      var idd= '' + friend133.id;
-    const res2 = await fetch('http://localhost:5000/api/Chats/'+ idd +"/Messages", {
-      'method': 'post',
-      'headers': {
-        'Content-Type': 'application/json',
-        'authorization': 'bearer ' + toko // attach the token
-      },
-      'body': JSON.stringify(data) 
-    }
-    )
-    getllmsg(setallmsg,friend133.id);
+
+      var idd = '' + friend133.id;
+      const res2 = await fetch('http://localhost:5000/api/Chats/' + idd + "/Messages", {
+        'method': 'post',
+        'headers': {
+          'Content-Type': 'application/json',
+          'authorization': 'bearer ' + toko // attach the token
+        },
+        'body': JSON.stringify(data)
+      }
+      )
+      getllmsg(setallmsg, friend133.id);
     }
   }
 
@@ -145,7 +146,7 @@ function Chat() {
       </div>
       <div id="chatscreen">
         <div id="photodiv">
-        {frinedphoto}
+          {frinedphoto}
         </div>
         <div id="yellowdiv">
           {allmsg}
