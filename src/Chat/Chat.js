@@ -11,45 +11,49 @@ import { lastlogin2 } from '../Signin/Signin.js';
 import { getllmsg } from '../Mydata/contacts.js';
 
 async function getloggedinow(set) {
-  const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
-    'method': 'GET',
-    'headers': {
-      'mode': 'no-cors',
-      'accept': 'text/plain',
-      'Content-Type': 'application/json',
-      'authorization': 'bearer ' + toko // attach the token
-    },
-  }
-  )
-  const result = await res.json();
-  set(result);
+  try {
+    const res = await fetch('http://localhost:5000/api/Users/' + lastlogin2, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + toko 
+      },
+    });
 
+    if (res.ok) {
+      const result = await res.json();
+      set(result);
+    } 
+  } catch (error) {
+  }
 }
+
 
 async function getcontacts(setMycontacts) {
+  try {
+    const res = await fetch('http://localhost:5000/api/Chats/', {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + toko 
+      },
+    });
 
-  const res2 = await fetch('http://localhost:5000/api/Chats/', {
-    'method': 'GET',
-    'headers': {
-      'mode': 'no-cors',
-      'accept': 'text/plain',
-      'Content-Type': 'application/json',
-      'authorization': 'bearer ' + toko // attach the token
-    },
+    if (res.ok) {
+      const result = await res.json();
+      setMycontacts(result);
+    } 
+  } catch (error) {
   }
-  )
-  if (res2.status == 404) {
-    return;
-  }
-  const result2 = await res2.json();
-  setMycontacts(result2);
-
 }
 
+
+
+
 function Chat() {
-
-
-
+  
   const reftxt = useRef(null);
   function makeEmpty(e) {
     document.getElementById("getfr").value = "";
@@ -60,10 +64,17 @@ function Chat() {
   const [friend133, setfriend133] = useState(null);
   const [loggedin, setloggedin] = useState({});
   const [myContatcs, setMycontacts] = useState([]);
+  const[boolean,setboolean]=useState('');
 
-  getloggedinow(setloggedin, setMycontacts);
-  getcontacts(setMycontacts);
 
+
+ useEffect(() => {
+  async function fetchData() {
+    await getloggedinow(setloggedin);
+    await getcontacts(setMycontacts);
+  }
+  fetchData();
+}, []);
 
 
 
@@ -78,7 +89,7 @@ function Chat() {
       'method': 'post',
       'headers': {
         'Content-Type': 'application/json',
-        'authorization': 'bearer ' + toko // attach the token
+        'authorization': 'bearer ' + toko 
       },
       'body': JSON.stringify(data)
     }
@@ -88,7 +99,7 @@ function Chat() {
 
     }
     else {
-      getcontacts(setMycontacts);
+      await getcontacts(setMycontacts);
     }
   }
 
@@ -99,24 +110,24 @@ function Chat() {
 
   async function sendmsg(msg) {
     if (friend133) {
-
       const data = {
         msg: msg
       }
-
       var idd = '' + friend133.id;
       const res2 = await fetch('http://localhost:5000/api/Chats/' + idd + "/Messages", {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json',
-          'authorization': 'bearer ' + toko // attach the token
+          'authorization': 'bearer ' + toko 
         },
         'body': JSON.stringify(data)
-      }
-      )
-      getllmsg(setallmsg, friend133.id);
+      });
+      
+      await getllmsg(setallmsg, friend133.id);
+      await getcontacts(setMycontacts); 
     }
   }
+  
 
 
 
