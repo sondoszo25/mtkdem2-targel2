@@ -103,7 +103,7 @@ function Signup() {
         },
         'body': JSON.stringify(data)
       })
-      if (res.status == 409) {
+      if (res.status !=200) {
         alert('the username is used try with another one !')
         return false;
       }

@@ -25,7 +25,7 @@ function Signin() {
     }
     )
     toko= await res.text();
-    if (res.status == 404) {
+    if (res.status != 200) {
       alert('Invalid username and/or password')
     }
     else {

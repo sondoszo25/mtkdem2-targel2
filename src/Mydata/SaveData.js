@@ -10,7 +10,7 @@ import dimg from '../dimg.png'
 function Me({data}) {
 
     var srcimg;
-    if (data.profilePic) {
+    if (data.profilePic !== "data:image/*;base64,") {
         srcimg= data.profilePic
     }
     else {

@@ -47,7 +47,7 @@ function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
 
   var srcimg;
 
-  if (user.profilePic) {
+  if (user.profilePic !== "data:image/*;base64,") {
     srcimg = user.profilePic
   }
   else {
