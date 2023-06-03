@@ -7,14 +7,17 @@ import { saveUser } from '../Mydata/SaveData.js';
 
 let base64String = "";
 
-function imageUploaded() {
-  var file = document.querySelector('input[type=file]')['files'][0];
-
+function imageUploaded(event) {
+  var file = event.target.files[0];
   var reader = new FileReader();
-
+  if(!file) {
+    base64String = "";
+    return;
+  }
   reader.onload = function () {
     base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
-  }
+  };
+
   reader.readAsDataURL(file);
 }
 
@@ -53,7 +56,7 @@ const IMG = () => {
             <div className="input-group distance190">
               <input id="imgupload" type="file" className="form-control" accept="image/*" onChange={(event) => {
                 setSelectedImage(event.target.files[0]);
-                imageUploaded();
+                imageUploaded(event);
               }}></input>
             </div>
           </div>        </nav>
@@ -95,6 +98,7 @@ function Signup() {
         displayName: name,
         profilePic: "data:image/*;base64," + base64String
       }
+      base64String = ""
       const res = await fetch('http://localhost:5000/api/Users', {
         'method': 'POST', // send a post request
         'headers': {

@@ -94,7 +94,7 @@ function Chat() {
       'body': JSON.stringify(data)
     }
     )
-    if (res2.status == 400) {
+    if (res2.status != 200) {
       alert("there is no username like this! or already added")
 
     }
