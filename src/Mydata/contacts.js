@@ -74,8 +74,13 @@ function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
     await getllmsg(set2, id);
   }
 
-
-
+var hour;
+var min;
+  if(lastMessage){
+const time = new Date(lastMessage.created);
+hour=time.getHours();
+min=time.getMinutes();
+  }
   return (
     <>
       <div type="button" id='jo1' onMouseOver={handleMouseOver} onMouseOut={handle2} style={divStyle} onClick={movescreen}>
@@ -85,7 +90,7 @@ function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
           <span id="chatin1">{lastMessage.content}</span>
         )}
         {(lastMessage &&
-          <span id="Clock1">{lastMessage.created}</span>
+          <span id="Clock1">{hour}:{min}</span>
         )}
       </div>
 
