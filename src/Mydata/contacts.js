@@ -1,8 +1,6 @@
 import './contacts.css';
 import dimg from '../dimg.png'
-import { movescreen } from './SaveData';
-import { useEffect, useState } from 'react';
-import Chat from '../Chat/Chat';
+import { useState } from 'react';
 import Compphoto from './Compphoto';
 import GetMsg from './msg';
 import { toko } from '../Signin/Signin.js'
@@ -74,12 +72,12 @@ function Contacts({ user, id, lastMessage, img, username, set, set2, set3 }) {
     await getllmsg(set2, id);
   }
 
-var hour;
-var min;
-  if(lastMessage){
-const time = new Date(lastMessage.created);
-hour=time.getHours();
-min=time.getMinutes();
+  var hour;
+  var min;
+  if (lastMessage) {
+    const time = new Date(lastMessage.created);
+    hour = time.getHours();
+    min = time.getMinutes();
   }
   return (
     <>

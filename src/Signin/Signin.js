@@ -1,7 +1,5 @@
 import './Signin.css';
 import { Link, useNavigate } from 'react-router-dom'
-import { createElement, useState } from 'react';
-import { check, lastlogin } from '../Mydata/SaveData.js';
 export var lastlogin2;
 export var toko;
 function Signin() {
@@ -24,13 +22,13 @@ function Signin() {
       'body': JSON.stringify(data) // The actual data (username/password)
     }
     )
-    toko= await res.text();
+    toko = await res.text();
     if (res.status != 200) {
       alert('Invalid username and/or password')
     }
     else {
-      lastlogin2=user;
-    
+      lastlogin2 = user;
+
       navigate('/Chat');
     }
   };

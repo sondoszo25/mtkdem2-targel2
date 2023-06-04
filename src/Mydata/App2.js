@@ -1,4 +1,4 @@
-import Me, { frineds } from '../Mydata/SaveData.js'
+import { frineds } from '../Mydata/SaveData.js'
 
 function App2() {
 

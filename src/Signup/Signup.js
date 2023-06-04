@@ -2,7 +2,6 @@ import './Signup.css';
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import React from 'react';
-import { saveUser } from '../Mydata/SaveData.js';
 
 
 let base64String = "";
@@ -10,7 +9,7 @@ let base64String = "";
 function imageUploaded(event) {
   var file = event.target.files[0];
   var reader = new FileReader();
-  if(!file) {
+  if (!file) {
     base64String = "";
     return;
   }
@@ -107,7 +106,7 @@ function Signup() {
         },
         'body': JSON.stringify(data)
       })
-      if (res.status !=200) {
+      if (res.status != 200) {
         alert('the username is used try with another one !')
         return false;
       }

@@ -1,6 +1,5 @@
 import './Chat.css';
 import { Link } from 'react-router-dom'
-import imgbc from './imgbc.jpg'
 import add from './add.png'
 import React, { useEffect, useRef, useState } from 'react';
 import Me, { frineds } from '../Mydata/SaveData.js'
@@ -17,14 +16,14 @@ async function getloggedinow(set) {
       headers: {
         'accept': 'application/json',
         'Content-Type': 'application/json',
-        'authorization': 'bearer ' + toko 
+        'authorization': 'bearer ' + toko
       },
     });
 
     if (res.ok) {
       const result = await res.json();
       set(result);
-    } 
+    }
   } catch (error) {
   }
 }
@@ -37,14 +36,14 @@ async function getcontacts(setMycontacts) {
       headers: {
         'accept': 'application/json',
         'Content-Type': 'application/json',
-        'authorization': 'bearer ' + toko 
+        'authorization': 'bearer ' + toko
       },
     });
 
     if (res.ok) {
       const result = await res.json();
       setMycontacts(result);
-    } 
+    }
   } catch (error) {
   }
 }
@@ -53,7 +52,7 @@ async function getcontacts(setMycontacts) {
 
 
 function Chat() {
-  
+
   const reftxt = useRef(null);
   function makeEmpty(e) {
     document.getElementById("getfr").value = "";
@@ -64,17 +63,17 @@ function Chat() {
   const [friend133, setfriend133] = useState(null);
   const [loggedin, setloggedin] = useState({});
   const [myContatcs, setMycontacts] = useState([]);
-  const[boolean,setboolean]=useState('');
+  const [boolean, setboolean] = useState('');
 
 
 
- useEffect(() => {
-  async function fetchData() {
-    await getloggedinow(setloggedin);
-    await getcontacts(setMycontacts);
-  }
-  fetchData();
-}, []);
+  useEffect(() => {
+    async function fetchData() {
+      await getloggedinow(setloggedin);
+      await getcontacts(setMycontacts);
+    }
+    fetchData();
+  }, []);
 
 
 
@@ -89,7 +88,7 @@ function Chat() {
       'method': 'post',
       'headers': {
         'Content-Type': 'application/json',
-        'authorization': 'bearer ' + toko 
+        'authorization': 'bearer ' + toko
       },
       'body': JSON.stringify(data)
     }
@@ -118,16 +117,16 @@ function Chat() {
         'method': 'post',
         'headers': {
           'Content-Type': 'application/json',
-          'authorization': 'bearer ' + toko 
+          'authorization': 'bearer ' + toko
         },
         'body': JSON.stringify(data)
       });
-      
+
       await getllmsg(setallmsg, friend133.id);
-      await getcontacts(setMycontacts); 
+      await getcontacts(setMycontacts);
     }
   }
-  
+
 
 
 
