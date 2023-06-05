@@ -23,7 +23,7 @@ function Signin() {
     }
     )
     toko = await res.text();
-    if (res.status != 200) {
+    if (res.status !== 200) {
       alert('Invalid username and/or password')
     }
     else {
@@ -54,7 +54,7 @@ function Signin() {
           Password: <input id="ps" className="distancee" type="password" placeholder="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, minimum 8 characters"></input>
         </div>
 
-        <input type="submit" id="placee" className="btn btn-primary" role="button" value="Login"></input>
+        <button type="submit" id="placee" className="btn btn-primary"  value="Login">Login</button>
         <div id="sentencee">Not registered?<Link to='/Register'>Click here</Link> to register</div>
 
       </form>

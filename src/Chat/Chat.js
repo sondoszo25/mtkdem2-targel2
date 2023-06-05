@@ -2,7 +2,7 @@ import './Chat.css';
 import { Link } from 'react-router-dom'
 import add from './add.png'
 import React, { useEffect, useRef, useState } from 'react';
-import Me, { frineds } from '../Mydata/SaveData.js'
+import Me from '../Mydata/SaveData.js'
 import Contacts from '../Mydata/contacts';
 import { removelast } from '../Mydata/contacts.js'
 import { toko } from '../Signin/Signin.js'
@@ -57,13 +57,11 @@ function Chat() {
   function makeEmpty(e) {
     document.getElementById("getfr").value = "";
   }
-  const [useStatef, setf] = useState(true);
   const [frinedphoto, setfriendphoto] = useState(null);
   const [allmsg, setallmsg] = useState([]);
   const [friend133, setfriend133] = useState(null);
   const [loggedin, setloggedin] = useState({});
   const [myContatcs, setMycontacts] = useState([]);
-  const [boolean, setboolean] = useState('');
 
 
 
@@ -93,7 +91,7 @@ function Chat() {
       'body': JSON.stringify(data)
     }
     )
-    if (res2.status != 200) {
+    if (res2.status !== 200) {
       alert("there is no username like this! or already added")
 
     }
@@ -121,7 +119,6 @@ function Chat() {
         },
         'body': JSON.stringify(data)
       });
-
       await getllmsg(setallmsg, friend133.id);
       await getcontacts(setMycontacts);
     }
@@ -166,7 +163,7 @@ function Chat() {
 
         <div id="me">
           <Me data={loggedin}></Me>
-          <img src={add} onClick={makeEmpty} type="button" width="16" height="16" fill="currentColor" className="bi bi-person-plus badd"
+          <img src={add} alt="img" onClick={makeEmpty} type="button" width="16" height="16" fill="currentColor" className="bi bi-person-plus badd"
             viewBox="0 0 16 16" data-bs-target="#exampleModal" data-bs-toggle="modal"></img>
           <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">

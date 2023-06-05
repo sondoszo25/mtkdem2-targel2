@@ -19,7 +19,7 @@ function Me({ data }) {
 
     return (
         <>
-            <img src={srcimg} className="rounded-circle imageid"></img><span id="chatme">{data.displayName}</span>
+            <img src={srcimg} alt="img" className="rounded-circle imageid"></img><span id="chatme" alt="img">{data.displayName}</span>
         </>
     )
 }

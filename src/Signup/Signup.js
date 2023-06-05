@@ -1,5 +1,5 @@
 import './Signup.css';
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import React from 'react';
 
@@ -33,14 +33,14 @@ const IMG = () => {
       document.getElementsByClassName("distance25")[0].style.top = "44%";
     }
     else {
-      {
+      
         document.getElementById("UserNameBox").style.height = "60%";
         document.getElementsByClassName("distance21")[0].style.top = "8%";
         document.getElementsByClassName("distance22")[0].style.top = "20%";
         document.getElementsByClassName("distance23")[0].style.top = "32%";
         document.getElementsByClassName("distance24")[0].style.top = "44%";
         document.getElementsByClassName("distance25")[0].style.top = "56%";
-      }
+      
     }
   });
 
@@ -64,7 +64,7 @@ const IMG = () => {
 
 
       {selectedImage && (
-        <img id="distance26" width="10px" src={URL.createObjectURL(selectedImage)} />
+        <img id="distance26" alt="img" width="10px" src={URL.createObjectURL(selectedImage)} />
       )
       }
 
@@ -84,8 +84,7 @@ function Signup() {
     const confirmPassword = document.getElementById("passc");
     const user = document.getElementById("user");
     const name = document.getElementById("namedis").value;
-    const img = document.getElementById("imgupload").files[0];
-    if (password.value != confirmPassword.value) {
+    if (password.value !== confirmPassword.value) {
       e.preventDefault();
       alert("Password did not match try again!");
       return false;
@@ -106,7 +105,7 @@ function Signup() {
         },
         'body': JSON.stringify(data)
       })
-      if (res.status != 200) {
+      if (res.status !== 200) {
         alert('the username is used try with another one !')
         return false;
       }
@@ -125,7 +124,7 @@ function Signup() {
 
       <form id="UserNameBox" onSubmit={navigateHome} >
 
-        <input type="submit" id="place" className="btn btn-primary" role="button" value="Register" ></input>
+        <button type="submit" id="place" className="btn btn-primary"  value="Register" >Register</button>
         <div id="sentence">Already registered?<Link to='/'>Click here</Link> to login</div>
 
         <div className="distance21">
