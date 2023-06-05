@@ -1,6 +1,7 @@
 # mtkdem2-targel2
 in this exercise we created a client which can talk to the server we were given.
 the server can give answer for these :
+
 a) http://localhost:5000/swagger/api/Chats: 
  1) in POST: it creates a new Chat
  2) in GET: it gives us all the chats of the current user
