@@ -201,13 +201,16 @@
     right: 5%;
 }
 
+.badd90{
+    position: absolute;
+    top: 55%;
+    right: 5%;
+}
+
 #speech-bubbler {
 width:100%;
 }
 
-#speech-bubbler:after {
-
-}
 
 #clock3 {
     color: dimgray;
