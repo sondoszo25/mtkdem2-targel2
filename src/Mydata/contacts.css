@@ -1,0 +1,25 @@
+#jo1{
+    position: relative;
+    width: 100%;
+    height: 10%;
+}
+#chatmeee{
+    margin-left: 5%;
+    top: 20%;
+    font-size: 1.1vw;
+    left: 5%;
+}
+.iimageidd {
+    height: 60%;
+    top: 20%;
+    width: 6%;
+    margin-left: 2%;
+    left: 2%;
+}
+
+#Clock1 {
+    position: absolute;
+    top: 5%;
+    font-size: 1vw;
+    right: 5%;
+}
