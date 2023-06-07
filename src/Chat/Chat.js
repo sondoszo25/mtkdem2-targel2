@@ -10,6 +10,7 @@ import { toko } from '../Signin/Signin.js'
 import { lastlogin2 } from '../Signin/Signin.js';
 import { getllmsg } from '../Mydata/contacts.js';
 import { socket } from '../socket';
+import { useNavigate } from 'react-router-dom'
 
 async function getloggedinow(set) {
   try {
@@ -94,6 +95,7 @@ function Chat() {
   const [boolean, setboolean] = useState('');
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [fooEvents, setFooEvents] = useState([]);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -103,7 +105,11 @@ function Chat() {
       socket.connect();
     }
     fetchData();
-
+    if(!toko)
+    {
+      navigate('/');
+    }
+     
     function onConnect() {
       setIsConnected(true);
     }
