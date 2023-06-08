@@ -27,6 +27,7 @@ d)http://localhost:5000/api/Chats/:id :
     2)in GET: gets all the messeges for the user who's his id is the id located in the link.
     
 
+to add a contact you should click on the "person with plus" button and than type his username (not his display name), the user must be registered to be able to add it.
 
 to delete a contact you should press on the button of "wastebasket" near the "add contact" button , and then type the name of the contact you want to delete.
  
