@@ -2,7 +2,7 @@
 In this project, we created a client application that communicates with a server, which handles various API requests. Below is a detailed description of the server's API endpoints and how the client interacts with it.
 
 # API Endpoints
-API Endpoints
+
 # 1. Chats
 Endpoint: http://localhost:5000/api/Chats
 * POST: Creates a new chat.
