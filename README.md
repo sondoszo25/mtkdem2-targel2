@@ -1,42 +1,44 @@
-# mtkdem2-targel2
-in this exercise we created a client which can talk to the server we were given.
-the server can give answer for these :
+# MessagingApp-client Side
+In this project, we created a client application that communicates with a server, which handles various API requests. Below is a detailed description of the server's API endpoints and how the client interacts with it.
 
-a) http://localhost:5000/api/Chats :
+# API Endpoints
+API Endpoints
+# 1. Chats
+Endpoint: http://localhost:5000/api/Chats
+* POST: Creates a new chat.
+* GET: Retrieves all chats associated with the current user.
+# 2. Tokens
+Endpoint: http://localhost:5000/api/Tokens
+* POST: Generates a JWT (JSON Web Token) for users attempting to log in.
+# 3. Users
+Endpoint: http://localhost:5000/api/Users
+* POST: Creates a new user.
 
-    1)in POST: it creates a new Chat
-    2)in GET: it gives us all the chats of the current user
+Endpoint: http://localhost:5000/api/Users/:id
+* GET: Returns details of the user with the specified id.
 
-b)http://localhost:5000/api/Tokens : in POST it creates a jwt for the user who want to log in
+# 4. Messages within Chats
+Endpoint: http://localhost:5000/api/Chats/:id/Messages
+* GET: Returns all messages exchanged between users in the chat with the specified id.
+* POST: Sends a message in the chat with the specified id.
+  
+# 5. Managing Chats
+Endpoint: http://localhost:5000/api/Chats/:id
 
-c)http://localhost:5000/api/Users : in POST: creates a new user
+* DELETE: Deletes the chat with the specified id.
+* GET: Retrieves all messages for the user with the specified id.
+  
+# Contact Management
+* Adding a Contact: Click on the "person with plus" icon and type the username (not the display name) of the user you want to add. The user must already be registered to be added as a contact.
 
-d)http://localhost:5000/api/Users/:id : in GET returns all the details about the user with the id in the link.
-
-e)http://localhost:5000/api/Chats/:id/Messages/ : 
-
-    1)in GET: returns all the masseges between the users which are
-    talking in the chat with this id.
-
-    2)in POST: send the meassge that its id located in the link.
-    
-d)http://localhost:5000/api/Chats/:id :
-
-    1)in DELETE: deletes the chat which  its id located in the link.
-    
-    2)in GET: gets all the messeges for the user who's his id is the id located in the link.
-    
-
-to add a contact you should click on the "person with plus" button and than type his username (not his display name), the user must be registered to be able to add it.
-
-to delete a contact you should press on the button of "wastebasket" near the "add contact" button , and then type the name of the contact you want to delete.
- 
+* Deleting a Contact: Click on the "wastebasket" icon near the "add contact" button, then type the username of the contact you want to delete.
 
 
-so we have changed our code from previous exercise to talk with the server, now all the logical operations like : 
-registeration, logging in, chatting... are implemented using the server.
 
-*to run this code: first you need to run the server "final" or any other server which have the same api , run the server
-and then go to the directory of this project and in cmd write npm start*
+# Running the Client
+To run this client-side application, follow these steps:
 
-* note: if you got a warning to install socket.io-client , write in the terminal "npm i socket.io-client"
+1. Start the server: Run the "final" server or any other server that provides the same API.
+2. Run the client: Navigate to the directory of this project and run the following command in the terminal: ''' npm start '''
+
+
